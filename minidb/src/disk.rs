@@ -8,12 +8,29 @@ use std::{
 pub const PAGE_SIZE: usize = 4096;
 
 // #[derive(Debug, Clone, Copy, Eq, PartialEq, Hash, FromBytes, AsBytes)]
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash)]
 pub struct PageId(pub u64);
 
 impl PageId {
+    pub const INVALID_PAGE_ID: PageId = PageId(u64::MAX);
+
+    // warning 出たので必要になるまでコメントアウトしてる
+    // pub fn valid(self) -> Option<PageId> {
+    //     if self == Self::INVALID_PAGE_ID {
+    //         None
+    //     } else {
+    //         Some(self)
+    //     }
+    // }
+
     pub fn to_u64(self) -> u64 {
         self.0
+    }
+}
+
+impl Default for PageId {
+    fn default() -> Self {
+        Self::INVALID_PAGE_ID
     }
 }
 
