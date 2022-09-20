@@ -187,7 +187,6 @@ impl BufferPoolManager {
         self.page_table.insert(page_id, buffer_id);
         Ok(page)
     }
-
     pub fn flush(&mut self) -> Result<(), Error> {
         for (&page_id, &buffer_id) in self.page_table.iter() {
             let frame = &self.pool[buffer_id];

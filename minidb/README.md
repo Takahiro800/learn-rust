@@ -19,3 +19,6 @@ use std::fs::File;
   - [rust - Rustの"unwrap()"は何をするものですか？ - スタック・オーバーフロー](https://ja.stackoverflow.com/questions/1730/rust%E3%81%AEunwrap%E3%81%AF%E4%BD%95%E3%82%92%E3%81%99%E3%82%8B%E3%82%82%E3%81%AE%E3%81%A7%E3%81%99%E3%81%8B)
 - borro_mut()
 - as_ref()
+
+# ディレクトリ構成について
+[Rustのmodule完全に理解した。](https://zenn.dev/newgyu/articles/3b4677b4086768)
