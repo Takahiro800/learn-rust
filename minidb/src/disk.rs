@@ -5,10 +5,13 @@ use std::{
     path::Path,
 };
 
+use zerocopy::{AsBytes, FromBytes};
+
 pub const PAGE_SIZE: usize = 4096;
 
 // #[derive(Debug, Clone, Copy, Eq, PartialEq, Hash, FromBytes, AsBytes)]
-#[derive(Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, FromBytes, AsBytes)]
+#[repr(C)]
 pub struct PageId(pub u64);
 
 impl PageId {
