@@ -47,3 +47,26 @@ fn add<T: std:ops:Add<Output = T>>(i: T, j: T) -> T {
 - `d<T: std:ops:Add<Output = T>>`は、「Tはstd:ops:Addを実装していなければダメ」という意味。
 - `トレイト`という言語機能は、OOPで例えると抽象基底クラスのようなもの。Haskellの型クラスに近い。
 - Rustの演算子は全て、トレイト付きで定義される。
+
+```rust:2-17｜型変数とトレイト境界を持つジェネリック関数
+use std:ops::{Add};
+use std:time::{Duration};
+
+fn add<T: Add<Output = T>>(i: T, j: T) -> T {
+	i + j
+}
+
+fn main() {
+	let floats = add(1.2, 3.4);
+	let ints = add(10, 20);
+	let durations = add(
+		Duration::new(5,0);
+		Duration::new(10,0);
+	);
+
+	println!("{}", floats);
+	println!("{}", ints);
+	println!("{}", durations;);
+}
+```
+- 関数addへの引数は、`std:ops::Add`を実装する型なら何でも受け入れる
