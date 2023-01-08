@@ -37,6 +37,35 @@ impl ActionKV {
         let index = HashMap::new();
         Ok(ActionKV { f, index })
     }
+    // line 43~
+    fn process_record<R: Read>(f: &mut R) -> io::Result<KeyValuePair> {
+        // TODO LittleEndian
+        let saved_checksum = f.read_u32::<LittleEndian>()?;
+        let key_len = f.read_u32::<LittleEndian>()?;
+        let value_len = f.read_u32::<LittleEndian>()?;
+        let data_len = key_len + value_len;
+
+        let mut data = ByteString::with_capacity(data_len as usize);
+
+        // TODO {} は何？
+        {
+            f.by_ref().take(data_len as u64).read_to_end(&mut data)?;
+        }
+        debug_assert_eq!(data.len(), data_len as usize);
+
+        let checksum = crc32::checksum_ieee(&data);
+        if checksum != saved_checksum {
+            panic!(
+                "data corruption encountered ({:08x} != {:08x})",
+                checksum, saved_checksum
+            );
+        }
+
+        let value = data.split_off(key_len as usize);
+        let key = data;
+
+        Ok(KeyValuePair { key, value })
+    }
 
     // line 79~
     pub fn load(&mut self) -> io::Result<()> {
