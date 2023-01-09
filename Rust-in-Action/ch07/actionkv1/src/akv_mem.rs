@@ -34,7 +34,7 @@ fn main() {
     match action {
         "get" => match store.get(key).unwrap() {
             None => eprintln!("{:?} not found", key),
-            Some(value) => println!("{}", value),
+            Some(value) => println!("{:?}", value),
         },
 
         "delete" => store.delete(key).unwrap(),
